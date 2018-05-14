@@ -3,7 +3,7 @@ import math
 import sys
 sys.path.append('../')
 from pso.local_best_pso import local_best_pso
-from common.functions.single_objective import sphere_func, rosenbrock_func, griewank_func, ackley_func, rastrigin_func, weierstrass_func
+from common.functions.single_objective import *
 
 # Run Local Best PSO 20 times on each function and take an average
 

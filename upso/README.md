@@ -1,10 +1,13 @@
 # Unified PSO
 
-# Unique Contribution
-* Combining global and local best into a single algorithm.
-* Mutation constant added to either Global or Local velocity update. 
+## Unique Contribution
+* Combines global and local best into a single algorithm.
+* Includes the addition of a stochastically mutated scalar constant to
+either Global or Local velocity updates.
 
-### Performance
+## Performance
 
-20 experiments were run for each function. Reported results were the percentage of runs that achieved the success goal, and the mean of the function evaluations required to achieve success ((number of particles * average number of iterations) / success rate)). 
- 
+Twenty experiments were run for each function. Reported results were the
+percentage of runs that achieved the success goal, and the mean of the
+function evaluations required to achieve success.
+

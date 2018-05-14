@@ -7,7 +7,6 @@ from common.utils.distance import euclideanDistance, getNeighbors
 def unified_pso(n, dims, c1, c2, w, u, k, mu, std, weight,
                            iters, obj_func, val_min, val_max):
 
-
     search_range = val_max - val_min
     v_clamp_min = - (0.2 * search_range)
     v_clamp_max = 0.2 * search_range

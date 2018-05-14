@@ -22,6 +22,7 @@ def global_best_pso(n, dims, c1, c2, w, iters, obj_func, val_min, val_max):
     P_BEST_POS_IDX = 2
     P_BEST_COST_IDX = 3
 
+    # Initialize swarm
     for particle in range(n):
         pos = np.random.uniform(val_min, val_max, dims)
         velocity = np.random.uniform(val_min, val_max, dims)
@@ -33,15 +34,16 @@ def global_best_pso(n, dims, c1, c2, w, iters, obj_func, val_min, val_max):
 
         swarm.append([pos, velocity, p_best_pos, p_best_cost])
 
-    x = 0
+    epoch = 1
 
-    while x < iters:
+    while epoch <= iters:
         for idx, particle in enumerate(swarm):
             if obj_func.__name__ == 'rosenbrock_func':
                 if idx == len(swarm) - 1:
                     pass
                 else:
-                    current_cost = obj_func(particle[P_POS_IDX], swarm[idx + 1][P_POS_IDX])
+                    current_cost = obj_func(particle[P_POS_IDX],\
+                                   swarm[idx + 1][P_POS_IDX])
             else:
                 current_cost = obj_func(particle[P_POS_IDX])
             personal_best_cost = swarm[idx][P_BEST_COST_IDX]
@@ -55,8 +57,10 @@ def global_best_pso(n, dims, c1, c2, w, iters, obj_func, val_min, val_max):
                 swarm_best_pos = swarm[idx][P_BEST_POS_IDX]
 
             # Compute velocity
-            cognitive = (c1 * np.random.uniform(0, 1, 2)) * (swarm[idx][P_BEST_POS_IDX] - swarm[idx][P_POS_IDX])
-            social = (c2 * np.random.uniform(0, 1, 2)) * (swarm_best_pos - swarm[idx][P_POS_IDX])
+            cognitive = (c1 * np.random.uniform(0, 1, 2)) * \
+                        (swarm[idx][P_BEST_POS_IDX] - swarm[idx][P_POS_IDX])
+            social = (c2 * np.random.uniform(0, 1, 2)) * \
+                     (swarm_best_pos - swarm[idx][P_POS_IDX])
             velocity = (w * swarm[idx][P_VELOCITY_IDX]) + cognitive + social
             if velocity[0] < v_clamp_min:
                 swarm[idx][P_VELOCITY_IDX][0] = v_clamp_min
@@ -72,6 +76,6 @@ def global_best_pso(n, dims, c1, c2, w, iters, obj_func, val_min, val_max):
             # Update poss
             swarm[idx][P_POS_IDX] += swarm[idx][P_VELOCITY_IDX]
 
-        x += 1
+        epoch += 1
 
     return swarm_best_cost
